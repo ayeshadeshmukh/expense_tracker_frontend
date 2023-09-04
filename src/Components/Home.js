@@ -11,11 +11,14 @@ const Home = () => {
   const [totalexpense, settotalexpense] = useState();
   const [categoryexpense, setcategoryexpense] = useState(false);
   const [pieData, setpieData] = useState([]);
-
-  
+const token = JSON.parse(localStorage.getItem("userinfo")).token;
+  let config = {
+    headers: {
+      token: token,
+    },
+  };
   const getdetails = () => {
-    axios
-      .get("http://localhost:805/user/getexpenses")
+    axios.get("http://localhost:805/user/getexpenses",config)
       .then((response) => {
         console.log(response.data); // This contains the response data // response.data here has result array as sent in backend
         const { result } = response.data;

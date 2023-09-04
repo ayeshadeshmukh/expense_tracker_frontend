@@ -34,6 +34,10 @@ const NavBar = () => {
             <li class="nav-item">
               <Link to="/addexpense">AddExpense</Link>
             </li>
+
+            <li class="nav-item">
+              <Link to="/logout">Logout</Link>
+            </li>
           </ul>
         </div>
       </nav>

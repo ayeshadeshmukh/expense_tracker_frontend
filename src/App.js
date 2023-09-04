@@ -5,6 +5,7 @@ import SignIn from './Components/SignIn'
 import AddExpense from './Components/AddExpense'
 import Nav from './Navbar/NavBar'
 import Home from './Components/Home'
+import Logout from './Components/Logout';
 import { BrowserRouter as Router,Routes, Route } from 'react-router-dom';
 
 function App() {
@@ -12,17 +13,14 @@ function App() {
     <>
       <div>
         <Nav>hello</Nav>
-            
-          <Routes>
-            <Route path="/home" element={<Home></Home>}></Route>
-            <Route path="/signup" element={<SignUp></SignUp>}></Route>
-            <Route path="/signin" element={<SignIn></SignIn>}></Route>
-            <Route
-              path="/addexpense"
-              element={<AddExpense></AddExpense>}
-            ></Route>
-          </Routes>
 
+        <Routes>
+          <Route path="/home" element={<Home></Home>}></Route>
+          <Route path="/signup" element={<SignUp></SignUp>}></Route>
+          <Route path="/signin" element={<SignIn></SignIn>}></Route>
+          <Route path="/addexpense" element={<AddExpense></AddExpense>}></Route>
+          <Route path="/logout" element={<Logout/>}></Route>
+        </Routes>
       </div>
     </>
   );
