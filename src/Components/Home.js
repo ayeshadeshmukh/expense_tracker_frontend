@@ -11,7 +11,19 @@ const Home = () => {
   const [totalexpense, settotalexpense] = useState();
   const [categoryexpense, setcategoryexpense] = useState(false);
   const [pieData, setpieData] = useState([]);
-const token = JSON.parse(localStorage.getItem("userinfo")).token;
+let token;
+  try{
+    
+     token = JSON.parse(localStorage.getItem("userinfo")).token
+  }
+  catch{
+    token = ""
+  }
+ 
+
+
+   
+  
   let config = {
     headers: {
       token: token,
@@ -22,6 +34,7 @@ const token = JSON.parse(localStorage.getItem("userinfo")).token;
       .then((response) => {
         console.log(response.data); // This contains the response data // response.data here has result array as sent in backend
         const { result } = response.data;
+        console.log("get details")
         setexpenses(result);
       })
       .catch((error) => {
@@ -30,7 +43,7 @@ const token = JSON.parse(localStorage.getItem("userinfo")).token;
   };
 
   const getTotalExpense = () => {
-    axios.get("http://localhost:805/user/totalexpense").then((response) => {
+    axios.get("http://localhost:805/user/totalexpense",config).then((response) => {
       console.log(response.data);
 
       const { totalexpense } = response.data;  // here i am destructuring the total expense as it it in form of array from the server
@@ -39,7 +52,7 @@ const token = JSON.parse(localStorage.getItem("userinfo")).token;
   };
 
   const getCategoryExpense = () => {
-    axios.get("http://localhost:805/user/categoryexpense").then((response) => {
+    axios.get("http://localhost:805/user/categoryexpense",config).then((response) => {
       console.log(response.data);
 
       const { categoryexpense } = response.data;
@@ -66,6 +79,7 @@ const token = JSON.parse(localStorage.getItem("userinfo")).token;
 
   //just as the home.js page gets render the code comes inside useeffect whatever we do in useeffect gets render
   useEffect(() => {
+    console.log(config);
     getdetails();
     getTotalExpense();
     getCategoryExpense();
