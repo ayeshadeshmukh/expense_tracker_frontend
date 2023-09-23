@@ -23,7 +23,7 @@ const SignUp = () => {
       'password' : password,
       'cpassword': cpassword
     }
-     if(password==cpassword){
+     if(password===cpassword){
 
       axios.post(url,data).then((response)=>{
         console.log(response.data)

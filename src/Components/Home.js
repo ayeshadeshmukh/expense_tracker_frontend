@@ -5,36 +5,37 @@ import axios from "axios";
 import { useState } from "react";
 import "../../node_modules/bootstrap/dist/css/bootstrap.min.css";
 import Chart from "react-google-charts";
+import { useNavigate } from 'react-router-dom';
+
 
 const Home = () => {
+  const navigate = useNavigate();
   const [expenses, setexpenses] = useState([]);
   const [totalexpense, settotalexpense] = useState();
   const [categoryexpense, setcategoryexpense] = useState(false);
   const [pieData, setpieData] = useState([]);
-let token;
-  try{
-    
-     token = JSON.parse(localStorage.getItem("userinfo")).token
-  }
-  catch{
-    token = ""
-  }
- 
+  let token;
 
-
+  try {
+    token = JSON.parse(localStorage.getItem("userinfo")).token;
+  } catch {
    
-  
+    token = "";
+  }
+
   let config = {
     headers: {
       token: token,
     },
   };
+
   const getdetails = () => {
-    axios.get("http://localhost:805/user/getexpenses",config)
+    axios
+      .get("http://localhost:805/user/getexpenses", config)
       .then((response) => {
         console.log(response.data); // This contains the response data // response.data here has result array as sent in backend
         const { result } = response.data;
-        console.log("get details")
+        console.log("get details");
         setexpenses(result);
       })
       .catch((error) => {
@@ -43,49 +44,57 @@ let token;
   };
 
   const getTotalExpense = () => {
-    axios.get("http://localhost:805/user/totalexpense",config).then((response) => {
-      console.log(response.data);
+    axios
+      .get("http://localhost:805/user/totalexpense", config)
+      .then((response) => {
+        console.log(response.data);
 
-      const { totalexpense } = response.data;  // here i am destructuring the total expense as it it in form of array from the server
-      settotalexpense(totalexpense);
-    });
+        const { totalexpense } = response.data; // here i am destructuring the total expense as it it in form of array from the server
+        settotalexpense(totalexpense);
+      });
   };
 
   const getCategoryExpense = () => {
-    axios.get("http://localhost:805/user/categoryexpense",config).then((response) => {
-      console.log(response.data);
+    axios
+      .get("http://localhost:805/user/categoryexpense", config)
+      .then((response) => {
+        console.log(response.data);
 
-      const { categoryexpense } = response.data;
-      let data = [];
-      let pydata = [["Category", "Expense per month"]];
-      for (let i = 0; i < categoryexpense.length; i++) {
-        data = []
-        data.push(categoryexpense[i].category);
+        const { categoryexpense } = response.data;
+        let data = [];
+        let pydata = [["Category", "Expense per month"]];
+        for (let i = 0; i < categoryexpense.length; i++) {
+          data = [];
+          data.push(categoryexpense[i].category);
 
-        data.push(categoryexpense[i]["SUM(price)"]);
-  
+          data.push(categoryexpense[i]["SUM(price)"]);
 
-        pydata.push(data)
-        
-      }
-        console.log(data)
-      setpieData(pydata);
-      // console.log(pieDacta)
-      setcategoryexpense(true);
+          pydata.push(data);
+        }
+        console.log(data);
+        setpieData(pydata);
+        // console.log(pieDacta)
+        setcategoryexpense(true);
 
-      // setcategoryexpense(categoryexpense);
-    });
+        // setcategoryexpense(categoryexpense);
+      });
   };
 
   //just as the home.js page gets render the code comes inside useeffect whatever we do in useeffect gets render
   useEffect(() => {
-    console.log(config);
+    let userInfo = JSON.parse(localStorage.getItem("userinfo"));
+    if(userInfo ==  null){
+      alert("login first to get informations")
+      navigate('/signin')
+
+    }
+
     getdetails();
     getTotalExpense();
     getCategoryExpense();
-    console.log(pieData)
+    console.log(pieData);
+    // eslint-disable-next-line
   }, []);
-
 
   // var pieData = [
   //   ["Task", "Hours per Day"],
@@ -98,7 +107,7 @@ let token;
   };
 
   return (
-    <div className = "container">
+    <div className="container">
       <div className="container ">
         {/* <h2>React Donut Chart Example</h2> */}
         {categoryexpense && (

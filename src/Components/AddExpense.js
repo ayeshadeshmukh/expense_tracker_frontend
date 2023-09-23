@@ -16,7 +16,7 @@ const AddExpense = () => {
     const userinfo = localStorage.getItem("userinfo");
 
     if (userinfo == null) {
-      alert("Please login first");
+      alert("Please login first"); // if user is not login we should not allow then to add the expense
     } 
     else {
       //console.log("Submitted")
