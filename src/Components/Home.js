@@ -105,6 +105,7 @@ const Home = () => {
     title: "My Monthly Expenses",
     pieHole: 0.2,
   };
+  
 
   return (
     <div className="container">
