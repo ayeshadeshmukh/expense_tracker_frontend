@@ -1,0 +1,11 @@
+1. when a non registered user try to sign in , we must show an alert or something.
+
+2. after a registered user logs in we must redirect it to home page.
+3. after an expense is added, we must clear the form . we must confirm before submitting the expense.
+3. in home page, change the format of the date in data-table. make it more readable.
+4. remove the navbar from the app. 
+5. overall CSS needs to be applied.
+6. add delete option in data-table.
+7. add a landing page.
+8. add a filter page.
+9. we need current month data in homepage.
