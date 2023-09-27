@@ -12,10 +12,13 @@ body {
   
   .hero-text {
     max-width: 500px;
+    font-family :Verdana, Geneva, Tahoma, sans-serif;
+    margin: 10px;
+    padding : 10px;
   }
   
   .hero-image {
-    width: 770px;
+    width: 670px;
     border-radius: 150px;
     box-shadow: 0 0 30px rgba(0, 0, 0, 0.5);
   }
@@ -28,11 +31,15 @@ body {
     text-align: center;
   }
   
-  .btn {
-    background-color: #000;
-    color: #fff;
+  .mybtn {
+    background-color: lightseagreen;
+   
     padding: 10px 20px;
-    text-decoration: none;
+    
+     border-radius: 10px;
+     border-color: #fff;
+
+    margin: 10px;
   }
   
-  
+   

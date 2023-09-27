@@ -8,6 +8,7 @@ import Nav from './Navbar/NavBar'
 import Home from './Components/Home'
 import Logout from './Components/Logout';
 import LandingPage from './Components/LandingPage';
+import Complete from './Components/Complete'
 import { BrowserRouter as Router,Routes, Route } from 'react-router-dom';
 
 function App() {
@@ -21,8 +22,9 @@ function App() {
           <Route path="/signup" element={<SignUp></SignUp>}></Route>
           <Route path="/signin" element={<SignIn></SignIn>}></Route>
           <Route path="/addexpense" element={<AddExpense></AddExpense>}></Route>
-          <Route path="/logout" element={<Logout/>}></Route>
-          <Route path="/" element={<LandingPage/>}></Route>
+          <Route path="/logout" element={<Logout />}></Route>
+          <Route path="/" element={<LandingPage />}></Route>
+          <Route path="/complete" element={<Complete />}></Route>
         </Routes>
       </div>
     </>

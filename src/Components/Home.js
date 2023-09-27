@@ -88,13 +88,17 @@ const Home = () => {
       navigate('/signin')
 
     }
-
-    getdetails();
-    getTotalExpense();
-    getCategoryExpense();
-    console.log(pieData);
+    
+      getdetails();
+      getTotalExpense();
+      getCategoryExpense();
+    
+    console.log(pieData); 
     // eslint-disable-next-line
-  }, []);
+
+    // settotalexpense(2546)
+    // console.log("in use effect")
+  },[]);
 
   // var pieData = [
   //   ["Task", "Hours per Day"],

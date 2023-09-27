@@ -1,0 +1,22 @@
+.myNavUl {
+     
+  display : flex;
+
+}
+
+.mynavitem {
+    margin: 2px 15px;
+        padding: 5px 10px;
+        list-style-type: none;
+}
+
+.myNavBar {
+    width : 400px;
+    margin :auto;
+}
+
+ .a {
+    text-decoration: none;
+        color: black;
+        font-style: revert;
+}
