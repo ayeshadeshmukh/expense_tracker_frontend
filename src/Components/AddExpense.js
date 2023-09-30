@@ -42,7 +42,7 @@ const AddExpense = () => {
        .toString()
        .padStart(2, "0")}`;
 
-      let url = "http://localhost:805/user/addexpense";
+      let url = `http://${process.env.REACT_APP_SERVER}:805/user/addexpense`;
       let data = {
         description: description,
         price: price,

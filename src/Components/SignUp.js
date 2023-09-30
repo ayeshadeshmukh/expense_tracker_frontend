@@ -1,21 +1,25 @@
 import React from 'react'
 import { useState } from 'react'
 import axios from 'axios'
+import { useNavigate } from 'react-router-dom'
 
 
 const SignUp = () => {
+
+  let navigate = useNavigate();
    const [name, setname] = useState()
    const [phone, setphone] = useState()
    const [email, setemail] = useState()
    const [password, setpassword] = useState()
    const [cpassword, setcpassword] = useState()
+   const [isSignedUp, setisSignedUp] = useState(false)
 
 
    const onsubmit = (event)=>{
     event.preventDefault()
     //console.log(name,phone,email,password,cpassword)
 
-    let url = 'http://localhost:805/user/signup'
+  let url = `http://${process.env.REACT_APP_SERVER}:805/user/signup`;
     let data = {
       'name' : name,
       'phone' : phone,
@@ -27,6 +31,17 @@ const SignUp = () => {
 
       axios.post(url,data).then((response)=>{
         console.log(response.data)
+          
+        if (response.data.message == "Successful") {
+          setisSignedUp(true);
+          setTimeout(() => {
+            setisSignedUp(false);
+            navigate("/signin");
+          }, 3000);
+        }
+
+
+        
         
       });
      }
@@ -47,6 +62,11 @@ const SignUp = () => {
      
 
     <div>
+      {isSignedUp && 
+        <div class="alert alert-success" role="alert">
+        You are successfully signed up.
+        </div>
+        }
        <form className="container"
        onSubmit = {onsubmit}
        >

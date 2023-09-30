@@ -31,7 +31,10 @@ const Home = () => {
 
   const getdetails = () => {
     axios
-      .get("http://localhost:805/user/getexpenses", config)
+      .get(
+        `http://${process.env.REACT_APP_SERVER}:805/user/getexpenses`,
+        config
+      )
       .then((response) => {
         console.log(response.data); // This contains the response data // response.data here has result array as sent in backend
         const { result } = response.data;
@@ -45,7 +48,10 @@ const Home = () => {
 
   const getTotalExpense = () => {
     axios
-      .get("http://localhost:805/user/totalexpense", config)
+      .get(
+        `http://${process.env.REACT_APP_SERVER}:805/user/totalexpense`,
+        config
+      )
       .then((response) => {
         console.log(response.data);
 
@@ -56,7 +62,10 @@ const Home = () => {
 
   const getCategoryExpense = () => {
     axios
-      .get("http://localhost:805/user/categoryexpense", config)
+      .get(
+        `http://${process.env.REACT_APP_SERVER}:805/user/categoryexpense`,
+        config
+      )
       .then((response) => {
         console.log(response.data);
 
