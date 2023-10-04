@@ -9,6 +9,7 @@ import Home from './Components/Home'
 import Logout from './Components/Logout';
 import LandingPage from './Components/LandingPage';
 import Complete from './Components/Complete'
+import FilterPage from './Components/FilterPage';
 import { BrowserRouter as Router,Routes, Route } from 'react-router-dom';
 
 function App() {
@@ -18,6 +19,7 @@ function App() {
         <Nav>hello</Nav>
 
         <Routes>
+        <Route path="/filter" element={<FilterPage></FilterPage>}></Route>
           <Route path="/home" element={<Home></Home>}></Route>
           <Route path="/signup" element={<SignUp></SignUp>}></Route>
           <Route path="/signin" element={<SignIn></SignIn>}></Route>

@@ -49,6 +49,8 @@ const AddExpense = () => {
         category: category,
         notes: notes,
         date: formattedDate,
+        month: month,
+        year: year,
       };
       let config = {
         headers: {

@@ -5,21 +5,21 @@ import axios from "axios";
 import { useState } from "react";
 import "../../node_modules/bootstrap/dist/css/bootstrap.min.css";
 import Chart from "react-google-charts";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
 
-
-const Home = () => {
+const FilterPage = () => {
   const navigate = useNavigate();
   const [expenses, setexpenses] = useState([]);
-  const [totalexpense, settotalexpense] = useState();
   const [categoryexpense, setcategoryexpense] = useState(false);
+  const [totalexpense, settotalexpense] = useState();
+  const [month, setmonth] = useState("JANUARY");
+  const [year, setyear] = useState(2021);
   const [pieData, setpieData] = useState([]);
   let token;
 
   try {
     token = JSON.parse(localStorage.getItem("userinfo")).token;
   } catch {
-   
     token = "";
   }
 
@@ -29,19 +29,24 @@ const Home = () => {
     },
   };
 
-  // Get the current date
-const currentDate = new Date();
-
-// Get the current month (0-indexed, so add 1 to get the actual month)
-const currentMonth = currentDate.getMonth() + 1;
-
-const currentYear = currentDate.getFullYear();
-
+  const SubmitHandler = (e) => {
+    e.preventDefault(); // Prevent the default form submission behavior
+  
+    console.log("Everything is ok");
+    console.log(month, year)
+    // Perform your form processing here
+    getdetails();
+    getTotalExpense();
+    getCategoryExpense();
+  };
 
 
   const getdetails = () => {
     axios
-      .get(`http://localhost:805/user/getexpenses?month=${currentMonth}&year=${currentYear}`, config)
+      .get(
+        `http://localhost:805/user/getexpenses?month=${month}&year=${year}`,
+        config
+      )
       .then((response) => {
         console.log(response.data); // This contains the response data // response.data here has result array as sent in backend
         const { result } = response.data;
@@ -55,7 +60,10 @@ const currentYear = currentDate.getFullYear();
 
   const getTotalExpense = () => {
     axios
-      .get(`http://localhost:805/user/totalexpense?month=${currentMonth}&year=${currentYear}`, config)
+      .get(
+        `http://localhost:805/user/totalexpense?month=${month}&year=${year}`,
+        config
+      )
       .then((response) => {
         console.log(response.data);
 
@@ -66,7 +74,10 @@ const currentYear = currentDate.getFullYear();
 
   const getCategoryExpense = () => {
     axios
-      .get(`http://localhost:805/user/categoryexpense?month=${currentMonth}&year=${currentYear}`, config)
+      .get(
+        `http://localhost:805/user/categoryexpense?month=${month}&year=${year}`,
+        config
+      )
       .then((response) => {
         console.log(response.data);
 
@@ -93,22 +104,17 @@ const currentYear = currentDate.getFullYear();
   //just as the home.js page gets render the code comes inside useeffect whatever we do in useeffect gets render
   useEffect(() => {
     let userInfo = JSON.parse(localStorage.getItem("userinfo"));
-    if(userInfo ==  null){
-      alert("login first to get informations")
-      navigate('/signin')
-
+    if (userInfo == null) {
+      alert("login first to get informations");
+      navigate("/signin");
     }
+
     
-      getdetails();
-      getTotalExpense();
-      getCategoryExpense();
-    
-    console.log(pieData); 
     // eslint-disable-next-line
 
     // settotalexpense(2546)
     // console.log("in use effect")
-  },[]);
+  }, []);
 
   // var pieData = [
   //   ["Task", "Hours per Day"],
@@ -119,10 +125,59 @@ const currentYear = currentDate.getFullYear();
     title: "My Monthly Expenses",
     pieHole: 0.2,
   };
-  
 
   return (
     <div className="container">
+      <form className="container" onSubmit={SubmitHandler}>
+        <div class="form-group">
+          <label for="Category">Select Yaer</label>
+          <select
+            class="form-control"
+            value={year}
+            onChange={(event) => {
+              setyear(event.target.value);
+            }}
+          >
+            <option>2021</option>
+            <option>2022</option>
+            <option>2023</option>
+            <option>2024</option>
+            <option>2025</option>
+            <option>2026</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="Category">Select Month</label>
+          <select
+            class="form-control"
+            value={month}
+            onChange={(event) => {
+              setmonth(event.target.value);
+            }}
+          >
+            <option value={1}>1</option>
+            <option>2</option>
+            <option>3</option>
+            <option>4</option>
+            <option>5</option>
+            <option>6</option>
+            <option>7</option>
+            <option>8</option>
+            <option>9</option>
+            <option value={"10"}>10</option>
+            <option>11</option>
+            <option>12</option>
+          </select>
+        </div>
+
+        <div>
+          <button class="btn btn-primary">
+            Submit
+          </button>
+        </div>
+      </form>
+
       <div className="container ">
         {/* <h2>React Donut Chart Example</h2> */}
         {categoryexpense && (
@@ -151,4 +206,4 @@ const currentYear = currentDate.getFullYear();
   );
 };
 
-export default Home;
+export default FilterPage;
