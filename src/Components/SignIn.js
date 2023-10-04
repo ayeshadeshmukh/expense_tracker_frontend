@@ -12,8 +12,10 @@ const SignIn = () => {
   const submitHandler = (event) => {
     event.preventDefault();
     console.log(email, password);
+    
+   console.log("THE SERVER IP ADDRESS IS" ,process.env.REACT_APP_SERVER);
+    let url = `http://${process.env.REACT_APP_SERVER}:805/user/signin`;
 
-    let url = "http://localhost:805/user/signin";
     let data = {
       email: email,
       password: password,

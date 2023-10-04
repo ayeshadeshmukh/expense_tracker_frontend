@@ -66,7 +66,7 @@ const currentYear = currentDate.getFullYear();
 
   const getCategoryExpense = () => {
     axios
-      .get(`http://localhost:805/user/categoryexpense?month=${currentMonth}&year=${currentYear}`, config)
+      .get("http://localhost:805/user/categoryexpense", config)
       .then((response) => {
         console.log(response.data);
 
