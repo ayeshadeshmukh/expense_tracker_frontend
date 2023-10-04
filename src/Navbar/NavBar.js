@@ -17,6 +17,11 @@ const NavBar = () => {
             AddExpense
           </Link>
         </li>
+        <li class="mynavitem">
+          <Link className="a" to="/filter">
+            Filter Expense
+          </Link>
+        </li>
       </ul>
     </div>
   );
