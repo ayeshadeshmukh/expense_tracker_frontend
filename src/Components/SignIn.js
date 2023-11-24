@@ -12,8 +12,8 @@ const SignIn = () => {
   const submitHandler = (event) => {
     event.preventDefault();
     console.log(email, password);
-    
-   console.log("THE SERVER IP ADDRESS IS" ,process.env.REACT_APP_SERVER);
+
+    console.log("THE SERVER IP ADDRESS IS", process.env.REACT_APP_SERVER);
     let url = `http://${process.env.REACT_APP_SERVER}:805/user/signin`;
 
     let data = {
@@ -33,19 +33,14 @@ const SignIn = () => {
         setTimeout(() => {
           navigate("/signup");
         }, 3000);
-      }
-       else if(response.data.email ){
+      } else if (response.data.email) {
         setdoesUserExist(true);
-           localStorage.setItem("userinfo", JSON.stringify(response.data));
-          setTimeout(() => {
-            setdoesUserExist(false);
-            navigate('/home')
-          }, 2000);
-
-
-
-       }
-      
+        localStorage.setItem("userinfo", JSON.stringify(response.data));
+        setTimeout(() => {
+          setdoesUserExist(false);
+          navigate("/home");
+        }, 2000);
+      }
     });
   };
 
@@ -56,11 +51,11 @@ const SignIn = () => {
           User does not exist! Please sign up first
         </div>
       )}
-      {doesUserExist && 
+      {doesUserExist && (
         <div class="alert alert-success" role="alert">
-         Welcome Back!!! You are successfully logged in.
+          Welcome Back!!! You are successfully logged in.
         </div>
-      }
+      )}
       <form className="container" onSubmit={submitHandler}>
         <div class="form-group">
           <label for="exampleInputEmail1">Email address</label>

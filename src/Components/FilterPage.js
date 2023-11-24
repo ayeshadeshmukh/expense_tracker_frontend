@@ -30,16 +30,14 @@ const FilterPage = () => {
   };
 
   const SubmitHandler = (e) => {
-    e.preventDefault(); // Prevent the default form submission behavior
-  
+    e.preventDefault();
     console.log("Everything is ok");
-    console.log(month, year)
-    // Perform your form processing here
+    console.log(month, year);
+
     getdetails();
     getTotalExpense();
     getCategoryExpense();
   };
-
 
   const getdetails = () => {
     axios
@@ -48,7 +46,7 @@ const FilterPage = () => {
         config
       )
       .then((response) => {
-        console.log(response.data); // This contains the response data // response.data here has result array as sent in backend
+        console.log(response.data);
         const { result } = response.data;
         console.log("get details");
         setexpenses(result);
@@ -67,7 +65,7 @@ const FilterPage = () => {
       .then((response) => {
         console.log(response.data);
 
-        const { totalexpense } = response.data; // here i am destructuring the total expense as it it in form of array from the server
+        const { totalexpense } = response.data;
         settotalexpense(totalexpense);
       });
   };
@@ -94,32 +92,18 @@ const FilterPage = () => {
         }
         console.log(data);
         setpieData(pydata);
-        // console.log(pieDacta)
-        setcategoryexpense(true);
 
-        // setcategoryexpense(categoryexpense);
+        setcategoryexpense(true);
       });
   };
 
-  //just as the home.js page gets render the code comes inside useeffect whatever we do in useeffect gets render
   useEffect(() => {
     let userInfo = JSON.parse(localStorage.getItem("userinfo"));
     if (userInfo == null) {
       alert("login first to get informations");
       navigate("/signin");
     }
-
-    
-    // eslint-disable-next-line
-
-    // settotalexpense(2546)
-    // console.log("in use effect")
   }, []);
-
-  // var pieData = [
-  //   ["Task", "Hours per Day"],
-
-  // ];
 
   const pieOptions = {
     title: "My Monthly Expenses",
@@ -172,9 +156,7 @@ const FilterPage = () => {
         </div>
 
         <div>
-          <button class="btn btn-primary">
-            Submit
-          </button>
+          <button class="btn btn-primary">Submit</button>
         </div>
       </form>
 

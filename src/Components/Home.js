@@ -5,8 +5,7 @@ import axios from "axios";
 import { useState } from "react";
 import "../../node_modules/bootstrap/dist/css/bootstrap.min.css";
 import Chart from "react-google-charts";
-import { useNavigate } from 'react-router-dom';
-
+import { useNavigate } from "react-router-dom";
 
 const Home = () => {
   const navigate = useNavigate();
@@ -19,7 +18,6 @@ const Home = () => {
   try {
     token = JSON.parse(localStorage.getItem("userinfo")).token;
   } catch {
-   
     token = "";
   }
 
@@ -29,21 +27,20 @@ const Home = () => {
     },
   };
 
-  // Get the current date
-const currentDate = new Date();
+  const currentDate = new Date();
 
-// Get the current month (0-indexed, so add 1 to get the actual month)
-const currentMonth = currentDate.getMonth() + 1;
+  const currentMonth = currentDate.getMonth() + 1;
 
-const currentYear = currentDate.getFullYear();
-
-
+  const currentYear = currentDate.getFullYear();
 
   const getdetails = () => {
     axios
-      .get(`http://localhost:805/user/getexpenses?month=${currentMonth}&year=${currentYear}`, config)
+      .get(
+        `http://localhost:805/user/getexpenses?month=${currentMonth}&year=${currentYear}`,
+        config
+      )
       .then((response) => {
-        console.log(response.data); // This contains the response data // response.data here has result array as sent in backend
+        console.log(response.data);
         const { result } = response.data;
         console.log("get details");
         setexpenses(result);
@@ -55,11 +52,14 @@ const currentYear = currentDate.getFullYear();
 
   const getTotalExpense = () => {
     axios
-      .get(`http://localhost:805/user/totalexpense?month=${currentMonth}&year=${currentYear}`, config)
+      .get(
+        `http://localhost:805/user/totalexpense?month=${currentMonth}&year=${currentYear}`,
+        config
+      )
       .then((response) => {
         console.log(response.data);
 
-        const { totalexpense } = response.data; // here i am destructuring the total expense as it it in form of array from the server
+        const { totalexpense } = response.data;
         settotalexpense(totalexpense);
       });
   };
@@ -86,48 +86,33 @@ const currentYear = currentDate.getFullYear();
         }
         console.log(data);
         setpieData(pydata);
-        // console.log(pieDacta)
-        setcategoryexpense(true);
 
-        // setcategoryexpense(categoryexpense);
+        setcategoryexpense(true);
       });
   };
 
-  //just as the home.js page gets render the code comes inside useeffect whatever we do in useeffect gets render
   useEffect(() => {
     let userInfo = JSON.parse(localStorage.getItem("userinfo"));
-    if(userInfo ==  null){
-      alert("login first to get informations")
-      navigate('/signin')
-
+    if (userInfo == null) {
+      alert("login first to get informations");
+      navigate("/signin");
     }
-    
-      getdetails();
-      getTotalExpense();
-      getCategoryExpense();
-    
-    console.log(pieData); 
-    // eslint-disable-next-line
 
-    // settotalexpense(2546)
-    // console.log("in use effect")
-  },[]);
+    getdetails();
+    getTotalExpense();
+    getCategoryExpense();
 
-  // var pieData = [
-  //   ["Task", "Hours per Day"],
-
-  // ];
+    console.log(pieData);
+  }, []);
 
   const pieOptions = {
     title: "My Monthly Expenses",
     pieHole: 0.2,
   };
-  
 
   return (
     <div className="container">
       <div className="container ">
-        {/* <h2>React Donut Chart Example</h2> */}
         {categoryexpense && (
           <Chart
             width={"600px"}

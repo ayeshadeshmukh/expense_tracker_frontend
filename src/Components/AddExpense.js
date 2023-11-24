@@ -11,74 +11,66 @@ const AddExpense = () => {
   const [price, setprice] = useState();
   const [category, setcategory] = useState("Food");
   const [notes, setnotes] = useState();
-   const [ifUserNotExists, setifUserNotExists] = useState(false)
-  const [ifExpenseAdded, setifExpenseAdded] = useState(false)
+  const [ifUserNotExists, setifUserNotExists] = useState(false);
+  const [ifExpenseAdded, setifExpenseAdded] = useState(false);
 
   const onSubmitHandler = (event) => {
     event.preventDefault();
     const userinfo = localStorage.getItem("userinfo");
-   
+
     if (userinfo == null) {
-      setifUserNotExists(true) // if user is not login we should not allow then to add the expense
-       setTimeout(() => {
+      setifUserNotExists(true);
+      setTimeout(() => {
         setifUserNotExists(false);
-        navigate('/signin')
-       }, 3000);
-    } 
-    else {
+        navigate("/signin");
+      }, 3000);
+    } else {
       const shouldSubmit = window.confirm(
         "Are you sure you want to submit this form?"
       );
       if (shouldSubmit) {
-    
-      //console.log("Submitted")
-      const token = JSON.parse(localStorage.getItem("userinfo")).token;
-      console.log(description, price, category, notes, date);
-      var day = date.getDate();
-      var month = date.getMonth()+1;
-      var year = date.getFullYear();
-      console.log(day, month, year);
-     const formattedDate = `${year}-${month.toString().padStart(2, "0")}-${day
-       .toString()
-       .padStart(2, "0")}`;
+        const token = JSON.parse(localStorage.getItem("userinfo")).token;
+        console.log(description, price, category, notes, date);
+        var day = date.getDate();
+        var month = date.getMonth() + 1;
+        var year = date.getFullYear();
+        console.log(day, month, year);
+        const formattedDate = `${year}-${month
+          .toString()
+          .padStart(2, "0")}-${day.toString().padStart(2, "0")}`;
 
-      let url = `http://${process.env.REACT_APP_SERVER}:805/user/addexpense`;
-      let data = {
-        description: description,
-        price: price,
-        category: category,
-        notes: notes,
-        date: formattedDate,
-        month: month,
-        year: year,
-      };
-      let config = {
-        headers: {
-          token: token,
-        },
-      };
-  
+        let url = `http://${process.env.REACT_APP_SERVER}:805/user/addexpense`;
+        let data = {
+          description: description,
+          price: price,
+          category: category,
+          notes: notes,
+          date: formattedDate,
+          month: month,
+          year: year,
+        };
+        let config = {
+          headers: {
+            token: token,
+          },
+        };
 
-    axios.post(url, data,config).then((response) => {
-      console.log(response.data)
-       if(response.data.message){
-        setifExpenseAdded(true);
-        setTimeout(() => {
-          setifExpenseAdded(false)
-          setdescription("")
-          setprice("")
-          setcategory("")
-          setnotes("")
-        }, 2000);
-            
-
-       }
-         
-    });
-  }
-  }
+        axios.post(url, data, config).then((response) => {
+          console.log(response.data);
+          if (response.data.message) {
+            setifExpenseAdded(true);
+            setTimeout(() => {
+              setifExpenseAdded(false);
+              setdescription("");
+              setprice("");
+              setcategory("");
+              setnotes("");
+            }, 2000);
+          }
+        });
+      }
+    }
   };
-
 
   return (
     <div>
@@ -104,7 +96,6 @@ const AddExpense = () => {
             id="exampleInputEmail1"
             value={description}
             aria-describedby="emailHelp"
-            // placeholder="Enter Price"
           />
         </div>
         <br></br>
@@ -170,7 +161,6 @@ const AddExpense = () => {
       </form>
     </div>
   );
-          
 };
 
 export default AddExpense;

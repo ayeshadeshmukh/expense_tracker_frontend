@@ -17,7 +17,7 @@ const SignUp = () => {
 
    const onsubmit = (event)=>{
     event.preventDefault()
-    //console.log(name,phone,email,password,cpassword)
+
 
   let url = `http://${process.env.REACT_APP_SERVER}:805/user/signup`;
     let data = {
