@@ -11,7 +11,6 @@ const NavBar = () => {
           </Link>
         </li>
 
-
         <li class="mynavitem">
           <Link className="a" to="/addexpense">
             AddExpense
@@ -20,6 +19,18 @@ const NavBar = () => {
         <li class="mynavitem">
           <Link className="a" to="/filter">
             Filter Expense
+          </Link>
+        </li>
+
+        <li class="mynavitem">
+          <Link className="a" to="/logout">
+            Logout
+          </Link>
+        </li>
+
+        <li class="mynavitem">
+          <Link className="a" to="/signup">
+            SignUp
           </Link>
         </li>
       </ul>
